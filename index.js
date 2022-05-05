@@ -14,12 +14,32 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bk9fn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    console.log("Alhamdulillah, connencted");
-    // perform actions on the collection object
-    client.close();
-});
+
+async function run() {
+    try {
+        await client.connect();
+        const inventoryCollection = client.db('primefactor').collection('inventory');
+
+        app.get('/inventory', async (req, res) => {
+            const query = {};
+            const cursor = inventoryCollection.find(query);
+            const inventories = await cursor.toArray();
+            res.send(inventories);
+        });
+    }
+    finally {
+
+    }
+}
+run().catch(console.dir);
+
+
+// client.connect(err => {
+//     const collection = client.db("test").collection("devices");
+//     console.log("Alhamdulillah, connencted");
+//     // perform actions on the collection object
+//     client.close();
+// });
 
 
 
