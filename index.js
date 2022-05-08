@@ -19,6 +19,7 @@ async function run() {
     try {
         await client.connect();
         const inventoryCollection = client.db('primefactor').collection('inventory');
+        const myItemsCollection = client.db('primefactor').collection('myItems');
 
         // get all inventory item
         app.get('/inventory', async (req, res) => {
@@ -60,6 +61,19 @@ async function run() {
                 }
             };
             const output = await inventoryCollection.updateOne(filter, updatedDoc, options);
+            res.send(output);
+        });
+
+        // myitem post
+        app.post("/myitem", async (req, res) => {
+            const myitem = req.body;
+            if (!myitem.name || !myitem.img) {
+                return res.send({
+                    succsess: false,
+                    error: "Plase provide all information",
+                });
+            }
+            const output = await myItemsCollection.insertOne(myitem);
             res.send(output);
         });
 
