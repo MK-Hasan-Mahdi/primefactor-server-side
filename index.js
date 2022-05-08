@@ -71,17 +71,8 @@ async function run() {
 run().catch(console.dir);
 
 
-// client.connect(err => {
-//     const collection = client.db("test").collection("devices");
-//     console.log("Alhamdulillah, connencted");
-//     // perform actions on the collection object
-//     client.close();
-// });
-
-
-
 app.get('/', (req, res) => {
-    res.send('running')
+    res.send('running primefactor warehouse system')
 });
 
 app.listen(port, () => {
