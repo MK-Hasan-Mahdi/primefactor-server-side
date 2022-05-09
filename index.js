@@ -109,6 +109,14 @@ async function run() {
             }
         });
 
+        // delete myitem page items
+        app.delete('/myitem/:id', async (req, res) => {
+            const inventoryId = req.params.id;
+            const query = { _id: ObjectId(inventoryId) };
+            const output = await myItemsCollection.deleteOne(query);
+            res.send(output)
+        });
+
         // for auth jwt token
         app.post('/login', async (req, res) => {
             const user = req.body;
@@ -118,13 +126,7 @@ async function run() {
             res.send({ accessToken });
         });
 
-        // delete myitem page items
-        app.delete('/myitem/:id', async (req, res) => {
-            const inventoryId = req.params.id;
-            const query = { _id: ObjectId(inventoryId) };
-            const output = await myItemsCollection.deleteOne(query);
-            res.send(output)
-        });
+
     }
     finally {
 
