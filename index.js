@@ -116,7 +116,15 @@ async function run() {
                 expiresIn: '30d'
             });
             res.send({ accessToken });
-        })
+        });
+
+        // delete myitem page items
+        app.delete('/myitem/:id', async (req, res) => {
+            const inventoryId = req.params.id;
+            const query = { _id: ObjectId(inventoryId) };
+            const output = await myItemsCollection.deleteOne(query);
+            res.send(output)
+        });
     }
     finally {
 
@@ -127,6 +135,10 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send('running primefactor warehouse system')
+});
+
+app.get('/hello', (req, res) => {
+    res.send('Hello Hello')
 });
 
 app.listen(port, () => {
