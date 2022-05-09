@@ -137,10 +137,6 @@ app.get('/', (req, res) => {
     res.send('running primefactor warehouse system')
 });
 
-app.get('/hello', (req, res) => {
-    res.send('Hello Hello')
-});
-
 app.listen(port, () => {
     console.log('listening port', port);
 })
