@@ -136,7 +136,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('running primefactor warehouse system')
+    res.send('Alhamdulillah, running primefactor warehouse system server')
 });
 
 app.listen(port, () => {
